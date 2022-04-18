@@ -35,8 +35,13 @@ class GoodsList {
     });
     document.querySelector('.goods-list').innerHTML = goodsList.join('');
   }
+  sum () {
+    let result = this.list.reduce((sum, current) => sum + current.price ,0);
+    document.querySelector('.goods-list-sum').innerHTML = `Суммарная стоимость всех товаров ${result}`;
+  }
 }
 
 const goodsList = new GoodsList();
 goodsList.fetchGoods();
 goodsList.render();
+goodsList.sum();
