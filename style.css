@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 header {
     height: 100px;
     display: flex;
@@ -92,4 +93,31 @@ header {
     align-items: center;
     font-size: 20px;
     color: #fff;
+}
+
+.basket {
+    width: 600px;
+    min-height: 220px;
+    background-color: rgb(218, 215, 215);
+    margin: 20px auto;
+    border: 1px solid black;
+    display: none;
+}
+
+.basket_dblock {
+    display: block;
+}
+
+.basket-item {
+    padding: 0 5px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.basket-result {
+    padding: 0 5px;
+    margin-top: 20px;
+    font-size: 20px;
 }
