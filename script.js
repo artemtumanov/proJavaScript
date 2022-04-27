@@ -5,7 +5,7 @@ const goods = [
   { title: 'Shoes', price: 250, img: 'url(img/shoes.jpg)' },
 ];
 const GET_GOOD_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json';
-const GET_GOOD_BASKET = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses//getBasket.json';
+const GET_GOOD_BASKET = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json';
 
 const basket = document.querySelector('.basket'),
       basketBtn = document.querySelector('.cart-button');
@@ -21,13 +21,8 @@ basketBtn.addEventListener('click', () => {
   }
 })
 
-function service(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', url);
-  xhr.send();
-  xhr.onload = () => {
-    callback(JSON.parse(xhr.response));
-  }
+function service(url) {
+    return fetch(url).then(response => response.json())
 }
 
 class GoodsItem {
@@ -49,11 +44,10 @@ class GoodsItem {
 
 class GoodsList {
   list = [];
-  fetchGoods (callback) {
-    service(GET_GOOD_ITEMS, (data) => {
-      this.list = data;
-      callback();
-    });
+  fetchGoods () {
+    return service(GET_GOOD_ITEMS).then(data => {
+        this.list = data;
+      });
   }
   render () {
     let goodsList = this.list.map(item => {
@@ -69,7 +63,7 @@ class GoodsList {
 }
 
 const goodsList = new GoodsList();
-goodsList.fetchGoods(() => {
+goodsList.fetchGoods().then(() => {
   goodsList.render();
   goodsList.sum();
 });
@@ -91,14 +85,12 @@ class GoodsBasketItem {
   }
 }
 
-
 class GoodsBasket {
   item = [];
-  fetchGoods(callback) {
-    service(GET_GOOD_BASKET, (data) => {
-      this.item = data;
-      callback();
-    })
+  fetchGoods() {
+    return service(GET_GOOD_BASKET).then(json => {
+        this.item = json;
+      });
   }
   render () {
     let goodsBasketList = this.item.contents.map(item => {
@@ -115,6 +107,7 @@ class GoodsBasket {
 }
 
 const goodsBasket = new GoodsBasket();
-goodsBasket.fetchGoods(() => {
+goodsBasket.fetchGoods().then(() => {
   goodsBasket.render();
 });
+
