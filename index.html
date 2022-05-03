@@ -10,33 +10,18 @@
 <body>
    <div id="root">
       <header>
-         <input type="text" id="search" v-model="search" v-on:input="filterItems">
-         <button class="cart-button" type="button" v-on:click="showBasket">Корзина</button>
+         <goods-search v-model="search" v-on:input="filterItems"></goods-search>
+         <custom-button v-on:click="showBasket">Корзина</custom-button>
       </header>
-      <div class="basket">
-         <div class = "basket-item" v-for="item in basketItems.contents">
-            <div class = "basket-item-title">{{ item.product_name }}</div>
-            <div class = "basket-item-price">{{ item.price }}&#8381</div>
-            <div class = "basket-item-quantity">{{ item.quantity }}</div>
-          </div>
-          <hr>
-          <div class="basket-result">Количество товаров: {{ basketItems.countGoods }}</div>
-          <div class="basket-result">Общая сумма: {{ basketItems.amount }} &#8381</div>
-      </div>
+      <basket-goods :goods="basketItems"></basket-goods>
       <main>
          <div class="no_goods">
             Нет данных
          </div>
          <div class="goods-list">
-            <div class="goods-item" v-for="item in filteredItems">
-               <div class = "goods-item-info">
-                  <div class = "goods-item-title">{{ item.product_name }}:</div>
-                  <div class = "goods-item-price">{{ item.price }} &#8381</div>
-                </div>
-                <div class="goods-item-add">Добавить</div>
-            </div>
+            <goods-item v-for="item in filteredItems" :item="item"></goods-item>
          </div>
-         <div class="goods-list-sum">Итого: {{ sum }} &#8381</div>
+         <sum :sum="sum"></sum>
       </main>
    </div>
 </body>
