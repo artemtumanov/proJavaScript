@@ -1,5 +1,5 @@
-const GET_GOOD_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json';
-const GET_GOOD_BASKET = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json';
+const GET_GOOD_ITEMS = 'http://localhost:8000/goods';
+const GET_GOOD_BASKET = 'http://localhost:8000/basket_goods';
 
 function service(url) {
 	return fetch(url).then(response => response.json())
@@ -37,15 +37,13 @@ function init () {
 	const basketGoods = Vue.component('basket-goods', {
 		props: ['goods', 'item'],
 		template: `
-			<div class="basket">
-				<div class = "basket-item" v-for="item in goods.contents">
-					<div class = "basket-item-title">{{ item.product_name }}</div>
-					<div class = "basket-item-price">{{ item.price }}&#8381</div>
-					<div class = "basket-item-quantity">{{ item.quantity }}</div>
+			<div class ="basket"> 
+				<div class="basket-item" v-for ="item in goods"> 
+					<div>Название: {{ item.data.product_name }}</div>
+					<div>Цена: {{ item.data.price }}</div>
+					<div>Количество: {{ item.count }}</div>
+					<div>Общая сумма: {{ item.total }}</div>
 				</div>
-				<hr>
-				<div class="basket-result">Количество товаров: {{ goods.countGoods }}</div>
-				<div class="basket-result">Общая сумма: {{ goods.amount }} &#8381</div>
 			</div>
 		`
 	});
