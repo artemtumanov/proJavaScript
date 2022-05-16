@@ -5,6 +5,17 @@ function service(url) {
 	return fetch(url).then(response => response.json())
 }
 
+function servicePost(url, body) {
+	return fetch(url, {
+		method: 'POST',
+		headers: {
+			"Content-type": "application/json"
+		},
+		body: JSON.stringify(body)
+	})
+}
+
+
 function init () {
 	const goodsItem = Vue.component('goods-item', {
 		props: ['item'],
@@ -14,7 +25,7 @@ function init () {
 					<div class = "goods-item-title">{{ item.product_name }}:</div>
 					<div class = "goods-item-price">{{ item.price }} &#8381</div>
 					</div>
-				<div class="goods-item-add">Добавить</div>
+				<div class="goods-item-add" @click="$emit('addgood', item.id)">Добавить</div>
 			</div>
 		`
 	});
@@ -42,6 +53,8 @@ function init () {
 					<div>Название: {{ item.data.product_name }}</div>
 					<div>Цена: {{ item.data.price }}</div>
 					<div>Количество: {{ item.count }}</div>
+					<button @click="$emit('addgood', item.id)">+</button>
+					<button>-</button>
 					<div>Общая сумма: {{ item.total }}</div>
 				</div>
 			</div>
@@ -88,7 +101,12 @@ function init () {
 			showBasket () {
 				const basket = document.querySelector('.basket');
 				basket.classList.toggle('dblock');
-			}
+			},
+			addGood(goodId) {
+				servicePost(GET_GOOD_BASKET, {
+					id: goodId
+				})
+			},
 		},
 		computed: {
 			sum () {

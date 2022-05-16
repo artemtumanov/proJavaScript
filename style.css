@@ -97,7 +97,7 @@ header {
 }
 
 .basket {
-    width: 600px;
+    width: 90%;
     min-height: 220px;
     background-color: rgb(218, 215, 215);
     margin: 20px auto;
@@ -113,7 +113,7 @@ header {
     padding: 0 5px;
     margin: 20px 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: 20px;
 }
 
@@ -140,4 +140,8 @@ header {
     height: 500px;
     line-height: 615px;
     display: none;
+}
+
+button {
+    width: 50px;
 }

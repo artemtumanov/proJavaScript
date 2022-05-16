@@ -13,13 +13,13 @@
          <goods-search v-model="search" v-on:input="filterItems"></goods-search>
          <custom-button v-on:click="showBasket">Корзина</custom-button>
       </header>
-      <basket-goods :goods="basketItems"></basket-goods>
+      <basket-goods :goods="basketItems" @addgood="addGood"></basket-goods>
       <main>
          <div class="no_goods">
             Нет данных
          </div>
          <div class="goods-list">
-            <goods-item v-for="item in filteredItems" :item="item"></goods-item>
+            <goods-item v-for="item in filteredItems" :item="item" @addgood="addGood"></goods-item>
          </div>
          <sum :sum="sum"></sum>
       </main>
